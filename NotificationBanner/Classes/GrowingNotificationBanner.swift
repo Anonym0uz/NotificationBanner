@@ -209,7 +209,8 @@ public extension GrowingNotificationBanner {
         titleTextAlign: NSTextAlignment? = nil,
         subtitleFont: UIFont? = nil,
         subtitleColor: UIColor? = nil,
-        subtitleTextAlign: NSTextAlignment? = nil
+        subtitleTextAlign: NSTextAlignment? = nil,
+        edgeInsets: UIEdgeInsets? = nil
     ) {
         
         if let cornerRadius = cornerRadius {
@@ -240,6 +241,10 @@ public extension GrowingNotificationBanner {
         
         if let subtitleTextAlign = subtitleTextAlign {
             subtitleLabel!.textAlignment = subtitleTextAlign
+        }
+        
+        if let edgeInsets = edgeInsets {
+            bannerEdgeInsets = edgeInsets
         }
         
         if titleFont != nil || subtitleFont != nil {
