@@ -187,7 +187,9 @@ open class GrowingNotificationBanner: BaseNotificationBanner {
                 make.right.equalToSuperview().offset(-padding)
             }
             
-            make.centerY.equalToSuperview()
+//            make.centerY.equalToSuperview()
+            make.top.equalToSuperview().offset(padding)
+            make.bottom.equalToSuperview().offset(-padding)
         }
     }
     
