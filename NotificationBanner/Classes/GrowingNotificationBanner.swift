@@ -64,12 +64,12 @@ open class GrowingNotificationBanner: BaseNotificationBanner {
                 let topOffset: CGFloat
                 let minHeight: CGFloat
 
-                if shouldAdjustForNotchFeaturedIphone() {
-                    topOffset = 44.0
-                    minHeight = 98.0
-                } else if shouldAdjustForDynamicIsland() {
+                if shouldAdjustForDynamicIsland() {
                     topOffset = 44.0
                     minHeight = 114.0
+                } else if shouldAdjustForNotchFeaturedIphone() {
+                    topOffset = 44.0
+                    minHeight = 98.0
                 } else {
                     topOffset = verticalSpacing
                     minHeight = 74.0
@@ -188,8 +188,8 @@ open class GrowingNotificationBanner: BaseNotificationBanner {
             }
             
 //            make.centerY.equalToSuperview()
-            make.top.equalToSuperview().offset(padding)
-            make.bottom.equalToSuperview().offset(-padding)
+            make.top.equalToSuperview().offset(0)
+            make.bottom.equalToSuperview().offset(0)
         }
     }
     

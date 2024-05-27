@@ -254,13 +254,44 @@ extension ExampleViewController: ExampleViewDelegate {
                         bannerPosition: selectedBannerPosition(),
                         cornerRadius: 10)
         default:
-            let banner = FloatingNotificationBanner(customView: NorthCarolinaBannerView())
-            banner.delegate = self
-            banner.transparency = 0.75
-            banner.show(queuePosition: selectedQueuePosition(),
-                        bannerPosition: selectedBannerPosition(),
-                        cornerRadius: 10,
-                        shadowBlurRadius: 15)
+            let leftImageView = UIImageView(image: .init(named: "ic_terapevt_new"))
+            leftImageView.contentMode = .scaleAspectFill
+//            leftView.addSubview(leftImageView)
+//            leftView.setEdges()
+//            let banner = FloatingNotificationBanner(title: "Test title",
+//                                                    subtitle: "This is body for notification!!!\ransdoiansodansdomasopd",
+//                                                    titleFont: .setDocFont_SemiBoldWithSize(16),
+//                                                    titleColor: .black,
+//                                                    titleTextAlign: .left,
+//                                                    subtitleFont: .setDocFont_MediumWithSize(12),
+//                                                    subtitleColor: .black,
+//                                                    subtitleTextAlign: .left,
+//                                                    leftView: leftImageView,
+//                                                    style: .info,
+//                                                    colors: CustomBannerColors(),
+//                                                    iconPosition: .top)
+            let banner = GrowingNotificationBanner(title: "Вы записаны на прием 16:00 24.05.2024",
+                                                   subtitle: "Вы записаны на прием 16:00 24.05.2024id = 1460",
+                                                   leftView: leftImageView,
+                                                   style: .info,
+                                                   colors: CustomBannerColors(),
+                                                   iconPosition: .top,
+                                                   sideViewSize: 40)
+            banner.applyStyling(cornerRadius: 16,
+                                titleFont: .systemFont(ofSize: 16, weight: .bold),
+                                titleColor: .black,
+                                titleTextAlign: .left,
+                                subtitleFont: .systemFont(ofSize: 12, weight: .medium),
+                                subtitleColor: .black,
+                                subtitleTextAlign: .left,
+                                edgeInsets: .init(top: 16, left: 22, bottom: 16, right: 22))
+//            let banner = FloatingNotificationBanner(customView: NorthCarolinaBannerView())
+//            banner.delegate = self
+//            banner.transparency = 0.75
+//            banner.show(queuePosition: selectedQueuePosition(),
+//                        bannerPosition: selectedBannerPosition(),
+//                        cornerRadius: 10,
+//                        shadowBlurRadius: 15)
         }
     }
 
