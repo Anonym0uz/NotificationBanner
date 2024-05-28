@@ -66,10 +66,10 @@ open class GrowingNotificationBanner: BaseNotificationBanner {
 
                 if shouldAdjustForDynamicIsland() {
                     topOffset = 44.0
-                    minHeight = 114.0
+                    minHeight = 104.0
                 } else if shouldAdjustForNotchFeaturedIphone() {
                     topOffset = 44.0
-                    minHeight = 98.0
+                    minHeight = 88.0
                 } else {
                     topOffset = verticalSpacing
                     minHeight = 74.0
