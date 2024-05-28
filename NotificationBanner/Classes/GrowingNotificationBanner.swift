@@ -64,16 +64,21 @@ open class GrowingNotificationBanner: BaseNotificationBanner {
                 let topOffset: CGFloat
                 let minHeight: CGFloat
 
-                if shouldAdjustForNotchFeaturedIphone() {
+                if shouldAdjustForDynamicIsland() {
                     topOffset = 44.0
                     minHeight = 114.0
+                } else if shouldAdjustForNotchFeaturedIphone() {
+                    topOffset = 44.0
+                    minHeight = 98.0
                 } else {
                     topOffset = verticalSpacing
                     minHeight = 74.0
                 }
                 
                 var actualBannerHeight = topOffset + titleHeight + subtitleHeight + verticalSpacing
-                
+                if let bannerEdgeInsets = bannerEdgeInsets {
+                    actualBannerHeight += bannerEdgeInsets.top + bannerEdgeInsets.bottom
+                }
                 if !subtitleHeight.isZero && !titleHeight.isZero {
                     actualBannerHeight += innerSpacing
                 }
