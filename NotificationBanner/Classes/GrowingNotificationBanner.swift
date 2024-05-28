@@ -76,8 +76,8 @@ open class GrowingNotificationBanner: BaseNotificationBanner {
                 }
                 
                 var actualBannerHeight = topOffset + titleHeight + subtitleHeight + verticalSpacing
-                if let bannerEdgeInsets = bannerEdgeInsets {
-                    actualBannerHeight += bannerEdgeInsets.top + bannerEdgeInsets.bottom
+                if let contentEdgeInsets = contentEdgeInsets {
+                    actualBannerHeight += contentEdgeInsets.top + contentEdgeInsets.bottom
                 }
                 if !subtitleHeight.isZero && !titleHeight.isZero {
                     actualBannerHeight += innerSpacing
@@ -92,6 +92,9 @@ open class GrowingNotificationBanner: BaseNotificationBanner {
     
     /// Spacing between the last label and the bottom edge of the banner
     private let verticalSpacing: CGFloat = 14.0
+    
+    /// Content edge insets (it's plus height)
+    private var contentEdgeInsets: UIEdgeInsets?
     
     /// Spacing between title and subtitle
     private let innerSpacing: CGFloat = 2.5
@@ -214,7 +217,8 @@ public extension GrowingNotificationBanner {
         subtitleFont: UIFont? = nil,
         subtitleColor: UIColor? = nil,
         subtitleTextAlign: NSTextAlignment? = nil,
-        edgeInsets: UIEdgeInsets? = nil
+        edgeInsets: UIEdgeInsets? = nil,
+        contentEdgeInsets: UIEdgeInsets? = nil
     ) {
         
         if let cornerRadius = cornerRadius {
@@ -249,6 +253,10 @@ public extension GrowingNotificationBanner {
         
         if let edgeInsets = edgeInsets {
             bannerEdgeInsets = edgeInsets
+        }
+        
+        if let contentEdgeInsets = contentEdgeInsets {
+            self.contentEdgeInsets = contentEdgeInsets
         }
         
         if titleFont != nil || subtitleFont != nil {
