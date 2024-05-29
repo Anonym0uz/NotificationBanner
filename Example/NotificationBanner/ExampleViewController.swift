@@ -62,20 +62,52 @@ extension ExampleViewController: ExampleViewDelegate {
         switch index {
         case 0:
             // Basic Success Notification
-            let banner = NotificationBanner(title: "Basic Success Notification",
-                                            subtitle: "Extremely Customizable!",
-                                            style: .success)
-            banner.delegate = self
-            
-            banner.onTap = {
-                self.showAlert(title: "Banner Success Notification Tapped", message: "")
-            }
-            
-            banner.onSwipeUp = {
-                self.showAlert(title: "Basic Success Notification Swiped Up", message: "")
-            }
-            
-            banner.show(queuePosition: selectedQueuePosition(), bannerPosition: selectedBannerPosition())
+//            let banner = NotificationBanner(title: "Basic Success Notification",
+//                                            subtitle: "Extremely Customizable!",
+//                                            style: .success)
+//            banner.delegate = self
+//            
+//            banner.onTap = {
+//                self.showAlert(title: "Banner Success Notification Tapped", message: "")
+//            }
+//            
+//            banner.onSwipeUp = {
+//                self.showAlert(title: "Basic Success Notification Swiped Up", message: "")
+//            }
+//            
+//            banner.show(queuePosition: selectedQueuePosition(), bannerPosition: selectedBannerPosition())
+            let leftImageView = UIImageView(image: .init(named: "ic_terapevt_new"))
+            leftImageView.contentMode = .scaleAspectFill
+//            leftView.addSubview(leftImageView)
+//            leftView.setEdges()
+//            let banner = FloatingNotificationBanner(title: "Test title",
+//                                                    subtitle: "This is body for notification!!!\ransdoiansodansdomasopd",
+//                                                    titleFont: .setDocFont_SemiBoldWithSize(16),
+//                                                    titleColor: .black,
+//                                                    titleTextAlign: .left,
+//                                                    subtitleFont: .setDocFont_MediumWithSize(12),
+//                                                    subtitleColor: .black,
+//                                                    subtitleTextAlign: .left,
+//                                                    leftView: leftImageView,
+//                                                    style: .info,
+//                                                    colors: CustomBannerColors(),
+//                                                    iconPosition: .top)
+            let banner = GrowingNotificationBanner(title: "Вы записались на онлайн консультацию к Дежурный терапевт",
+                                                   subtitle: "Запись 24748 15:12 28.05.2024 прошла успешно".replacingOccurrences(of: "\r", with: " ").replacingOccurrences(of: "\n", with: " "),
+                                                   leftView: leftImageView,
+                                                   style: .info,
+                                                   colors: CustomBannerColors(),
+                                                   iconPosition: .top,
+                                                   sideViewSize: 40)
+            banner.applyStyling(cornerRadius: 16,
+                                titleFont: .systemFont(ofSize: 16, weight: .bold),
+                                titleColor: .black,
+                                titleTextAlign: .left,
+                                subtitleFont: .systemFont(ofSize: 12, weight: .medium),
+                                subtitleColor: .black,
+                                subtitleTextAlign: .left,
+                                edgeInsets: .init(top: 0, left: 22, bottom: 0, right: 22))
+            banner.show(bannerPosition: .top)
         case 1:
             // Basic Danger Notification
             let banner = NotificationBanner(title: "Basic Danger Notification",
@@ -284,7 +316,7 @@ extension ExampleViewController: ExampleViewDelegate {
                                 subtitleFont: .systemFont(ofSize: 12, weight: .medium),
                                 subtitleColor: .black,
                                 subtitleTextAlign: .left,
-                                edgeInsets: .init(top: 16, left: 22, bottom: 16, right: 22))
+                                edgeInsets: .init(top: 0, left: 22, bottom: 0, right: 22))
 //            let banner = FloatingNotificationBanner(customView: NorthCarolinaBannerView())
 //            banner.delegate = self
 //            banner.transparency = 0.75
