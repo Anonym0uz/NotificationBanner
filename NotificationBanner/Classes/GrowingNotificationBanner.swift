@@ -52,6 +52,9 @@ open class GrowingNotificationBanner: BaseNotificationBanner {
                 if rightView != nil {
                     boundingWidth -= sideViewSize + padding
                 }
+                if let bannerEdgeInsets = bannerEdgeInsets {
+                    boundingWidth -= (bannerEdgeInsets.left + bannerEdgeInsets.right)
+                }
                 
                 let titleHeight = ceil(titleLabel?.sizeThatFits(
                     CGSize(width: boundingWidth,
@@ -184,14 +187,8 @@ open class GrowingNotificationBanner: BaseNotificationBanner {
         
         contentView.addSubview(outerStackView)
         outerStackView.snp.makeConstraints { (make) in
-            if #available(iOS 11.0, *) {
-                make.left.equalTo(safeAreaLayoutGuide).offset(padding)
-                make.right.equalTo(safeAreaLayoutGuide).offset(-padding)
-            } else {
-                make.left.equalToSuperview().offset(padding)
-                make.right.equalToSuperview().offset(-padding)
-            }
-            
+            make.left.equalTo(safeAreaLayoutGuide).offset(padding)
+            make.right.equalTo(safeAreaLayoutGuide).offset(-padding)
             make.centerY.equalToSuperview()
 //            make.top.equalToSuperview().offset(0)
 //            make.bottom.equalToSuperview().offset(0)
