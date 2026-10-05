@@ -700,15 +700,21 @@ open class BaseNotificationBanner: UIView {
      */
 
     internal func shouldAdjustForDynamicIsland() -> Bool {
+        let isPortrait = UIApplication.shared.connectedScenes
+            .compactMap { $0 as? UIWindowScene }
+            .first?.effectiveGeometry.interfaceOrientation.isPortrait ?? false
         return NotificationBannerUtilities.hasDynamicIsland()
-            && UIApplication.shared.statusBarOrientation.isPortrait
-            && (self.parentViewController?.navigationController?.isNavigationBarHidden ?? true)
+        && isPortrait
+        && (self.parentViewController?.navigationController?.isNavigationBarHidden ?? true)
     }
     
     internal func shouldAdjustForNotchFeaturedIphone() -> Bool {
+        let isPortrait = UIApplication.shared.connectedScenes
+            .compactMap { $0 as? UIWindowScene }
+            .first?.effectiveGeometry.interfaceOrientation.isPortrait ?? false
         return NotificationBannerUtilities.isNotchFeaturedIPhone()
-            && UIApplication.shared.statusBarOrientation.isPortrait
-            && (self.parentViewController?.navigationController?.isNavigationBarHidden ?? true)
+        && isPortrait
+        && (self.parentViewController?.navigationController?.isNavigationBarHidden ?? true)
     }
     /**
         Updates the scrolling marquee label duration
@@ -745,3 +751,59 @@ open class BaseNotificationBanner: UIView {
     }
 }
 
+public extension UILabel {
+    func textWidth() -> CGFloat {
+        return self.textWidth(label: self)
+    }
+
+    func textWidth(label: UILabel) -> CGFloat {
+        return textWidth(label: label, text: label.text!)
+    }
+
+    func textWidth(label: UILabel, text: String) -> CGFloat {
+        return textWidth(font: label.font, text: text)
+    }
+
+    func textWidth(font: UIFont, text: String) -> CGFloat {
+        return textSize(font: font, text: text).width
+    }
+
+    func textHeight(withWidth width: CGFloat, font: UIFont, text: String) -> CGFloat {
+        return textSize(font: font, text: text, width: width).height
+    }
+
+    func textSize(font: UIFont, text: String, extra: CGSize) -> CGSize {
+        var size = textSize(font: font, text: text)
+        size.width = size.width + extra.width
+        size.height = size.height + extra.height
+        return size
+    }
+    func textSize(font: UIFont, text: String, width: CGFloat = .greatestFiniteMagnitude, height: CGFloat = .greatestFiniteMagnitude) -> CGSize {
+        let label = UILabel(frame: CGRect(x: 0, y: 0, width: width, height: height))
+        label.numberOfLines = 0
+        label.font = font
+        label.text = text
+        label.sizeToFit()
+        return label.frame.size
+    }
+
+    func countLines(font: UIFont, text: String, width: CGFloat, height: CGFloat = .greatestFiniteMagnitude) -> Int {
+        // Call self.layoutIfNeeded() if your view uses auto layout
+        let myText = text as NSString
+
+        let rect = CGSize(width: width, height: height)
+        let labelSize = myText.boundingRect(with: rect, options: .usesLineFragmentOrigin, attributes: [NSAttributedString.Key.font: font], context: nil)
+
+        return Int(ceil(CGFloat(labelSize.height) / font.lineHeight))
+    }
+
+    func countLines(width: CGFloat = .greatestFiniteMagnitude, height: CGFloat = .greatestFiniteMagnitude) -> Int {
+        // Call self.layoutIfNeeded() if your view uses auto layout
+        let myText = (self.text ?? "") as NSString
+
+        let rect = CGSize(width: width, height: height)
+        let labelSize = myText.boundingRect(with: rect, options: .usesLineFragmentOrigin, attributes: [NSAttributedString.Key.font: self.font ?? .systemFont(ofSize: 14)], context: nil)
+
+        return Int(ceil(CGFloat(labelSize.height) / self.font.lineHeight))
+    }
+}

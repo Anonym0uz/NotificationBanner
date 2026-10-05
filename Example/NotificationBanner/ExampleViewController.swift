@@ -249,8 +249,19 @@ extension ExampleViewController: ExampleViewDelegate {
             banner.delegate = self
             banner.show(queuePosition: selectedQueuePosition(), bannerPosition: selectedBannerPosition())
         default:
-            let leftView = UIImageView(image: #imageLiteral(resourceName: "danger"))
-            let banner = GrowingNotificationBanner(title: "Lorem Ipsum is simply dummy text of the printing and typesetting industry.", subtitle: "Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.", leftView: leftView, style: .danger, sideViewSize: 48)
+//            let leftView = UIImageView(image: #imageLiteral(resourceName: "danger"))
+            let leftImageView = UIImageView(image: .init(named: "ic_terapevt_new"))
+            leftImageView.contentMode = .scaleAspectFill
+            let banner = GrowingNotificationBanner(title: "Вы записались на онлайн консультацию к Дежурный терапевт",
+                                                   subtitle: "Запись 24748 15:12 28.05.2024 прошла успешно\rnotification-tamplate/2969", leftView: leftImageView, style: .info, sideViewSize: 48)
+            banner.applyStyling(cornerRadius: 16,
+                                titleFont: .systemFont(ofSize: 16, weight: .bold),
+                                titleColor: .black,
+                                titleTextAlign: .left,
+                                subtitleFont: .systemFont(ofSize: 12, weight: .medium),
+                                subtitleColor: .black,
+                                subtitleTextAlign: .left,
+                                edgeInsets: .init(top: 0, left: 22, bottom: 0, right: 22))
             banner.delegate = self
             banner.show(queuePosition: selectedQueuePosition(), bannerPosition: selectedBannerPosition())
         }

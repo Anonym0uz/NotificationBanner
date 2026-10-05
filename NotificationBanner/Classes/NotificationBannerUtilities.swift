@@ -22,7 +22,9 @@ class NotificationBannerUtilities: NSObject {
 
     class func isNotchFeaturedIPhone() -> Bool {
         if #available(iOS 11, *) {
-            if UIApplication.shared.keyWindow?.safeAreaInsets.bottom ?? 0.0 > 0.0 {
+            if UIApplication.shared.connectedScenes
+                .compactMap { $0 as? UIWindowScene }
+                .first?.keyWindow?.safeAreaInsets.bottom ?? 0.0 > 0.0 {
                 return true
             } else {
                 return false
@@ -34,7 +36,9 @@ class NotificationBannerUtilities: NSObject {
     
     class func hasDynamicIsland() -> Bool {
         if #available(iOS 11, *) {
-            if UIApplication.shared.keyWindow?.safeAreaInsets.top ?? 0.0 > 50.0 {
+            if UIApplication.shared.connectedScenes
+                .compactMap { $0 as? UIWindowScene }
+                .first?.keyWindow?.safeAreaInsets.top ?? 0.0 > 50.0 {
                 return true
             } else {
                 return false
